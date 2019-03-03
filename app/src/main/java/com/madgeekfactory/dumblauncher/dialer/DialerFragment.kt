@@ -1,11 +1,12 @@
 package com.madgeekfactory.dumblauncher.dialer
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 import com.madgeekfactory.dumblauncher.R
 import kotlinx.android.synthetic.main.fragment_dialer.call
 import kotlinx.android.synthetic.main.fragment_dialer.eight
@@ -24,15 +25,6 @@ import kotlinx.android.synthetic.main.fragment_dialer.three
 import kotlinx.android.synthetic.main.fragment_dialer.two
 import kotlinx.android.synthetic.main.fragment_dialer.zero
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- *
- */
 class DialerFragment : Fragment(), OnClickListener {
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -67,6 +59,11 @@ class DialerFragment : Fragment(), OnClickListener {
   }
 
   override fun onClick(v: View?) {
+    if (v?.id == R.id.call) {
+      initiateCall(numberDisplay.text)
+      return
+    }
+
     var digit = when (v?.id) {
       R.id.zero -> "0"
       R.id.one -> "1"
@@ -84,5 +81,12 @@ class DialerFragment : Fragment(), OnClickListener {
       else -> ""
     }
     numberDisplay.text = numberDisplay.text.toString() + digit
+  }
+
+  private fun initiateCall(number: CharSequence) {
+    val bundle = Bundle()
+    bundle.putString("number", number.toString())
+    NavHostFragment.findNavController(this)
+        .navigate(R.id.action_dialerFragment_to_callFragment, bundle)
   }
 }

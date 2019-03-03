@@ -15,5 +15,23 @@
   <fragment
       android:id="@+id/dialerFragment"
       android:name="com.madgeekfactory.dumblauncher.dialer.DialerFragment"
-      android:label="CallFragment"/>
+      android:label="CallFragment">
+    <action
+        android:id="@+id/action_dialerFragment_to_callFragment"
+        app:destination="@id/callFragment"/>
+  </fragment>
+  <fragment
+      android:id="@+id/callFragment"
+      android:name="com.madgeekfactory.dumblauncher.dialer.CallFragment"
+      android:label="CallFragment">
+    <argument
+        android:name="number"
+        app:argType="string"/>
+    <action
+        android:id="@+id/action_callFragment_to_dialerFragment"
+        app:destination="@id/dialerFragment"/>
+  </fragment>
+  <action
+      android:id="@+id/action_global_callFragment"
+      app:destination="@id/callFragment"/>
 </navigation>
