@@ -9,6 +9,7 @@ import com.madgeekfactory.dumblauncher.dialer.CallEvent
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import java.net.URLDecoder
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,7 +47,8 @@ class MainActivity : AppCompatActivity() {
 
     if (destinationId != R.id.callFragment) {
       val bundle = Bundle()
-      bundle.putString("number", call?.details?.handle?.encodedSchemeSpecificPart)
+      val number = URLDecoder.decode(call?.details?.handle?.encodedSchemeSpecificPart)
+      bundle.putString("number", number)
       bundle.putBoolean("incoming", true)
       navController.navigate(R.id.action_global_callFragment, bundle)
     }
