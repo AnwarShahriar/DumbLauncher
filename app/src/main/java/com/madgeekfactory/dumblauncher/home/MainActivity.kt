@@ -13,6 +13,8 @@ import java.net.URLDecoder
 
 class MainActivity : AppCompatActivity() {
 
+  var call : Call? = null
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
@@ -39,6 +41,8 @@ class MainActivity : AppCompatActivity() {
     when (callEvent.state) {
       Call.STATE_RINGING -> openCallScreen(callEvent.call)
     }
+
+    this.call = callEvent.call
   }
 
   private fun openCallScreen(call: Call?) {
